@@ -1,3 +1,4 @@
+import 'package:cinema_booking_app_ui/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -5,6 +6,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const Scaffold(
+      backgroundColor: appBackgroundColor,
+    );
   }
 }
