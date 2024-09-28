@@ -1,4 +1,4 @@
-import 'package:cinema_booking_app_ui/views/home_screen.dart';
+import 'package:cinema_booking_app_ui/views/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: MainScreen(),
     );
   }
 }
