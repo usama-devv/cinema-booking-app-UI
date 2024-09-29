@@ -1,6 +1,12 @@
+import 'dart:math';
+
 import 'package:cinema_booking_app_ui/model/category_model.dart';
 import 'package:cinema_booking_app_ui/utils/constants/colors.dart';
+import 'package:cinema_booking_app_ui/views/detail_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../model/movie_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,6 +16,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late PageController controller;
+  double pageOffSet = 1;
+  int currentIndex = 1;
+  @override
+  void initState() {
+    controller = PageController(
+      initialPage: 1,
+      viewportFraction: 0.6,
+    )..addListener(() {
+        setState(() {
+          pageOffSet = controller.page!;
+        });
+      });
+    super.initState();
+  }
+  void despose(){
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
       /// Search Bar
       body: Column(
         children: [
-          const SizedBox(height: 35),
+          const SizedBox(height: 30),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: TextField(
@@ -104,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
 
           /// Category
-          const SizedBox(height: 30),
+          const SizedBox(height: 25),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
@@ -171,35 +197,97 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 30),
+              ],
+            ),
+          ),
 
-                /// Showing this month
+          /// Showing this month
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    "Showing This Month",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 30),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Stack(
+                    alignment: Alignment.center,
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: Text(
-                          "Showing This Month",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 30),
-                      Expanded(
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            PageView.builder(
-                              itemBuilder: (context, index) {
-                                return GestureDetector();
-                              },
+                      PageView.builder(
+                        controller: controller,
+                        onPageChanged: (index) {
+                          setState(() {
+                            currentIndex = index % movies.length;
+                          });
+                        },
+                        itemBuilder: (context, index) {
+                          double scale = max(
+                            0.6,
+                            (1 - (pageOffSet - index).abs() + 0.6),
+                          );
+                          double angle = (controller.position.haveDimensions
+                                  ? index.toDouble() - (controller.page ?? 0)
+                                  : index.toDouble() - 1) *
+                              5;
+                          angle = angle.clamp(-5, 5);
+                          final movie = movies[index % movies.length];
+                          return GestureDetector(
+                            onTap: () {
+                              Get.to(() => const DetailScreen());
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                top: 100 - (scale / 1.6 * 100),
+                              ),
+                              child: Stack(
+                                alignment: Alignment.topCenter,
+                                children: [
+                                  Transform.rotate(
+                                    angle: angle * pi / 90,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(25),
+                                      child: Image.network(
+                                        movie.poster,
+                                        height: 300,
+                                        width: 205,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ],
+                          );
+                        },
+                      ),
+                      Positioned(
+                        top: 330,
+                        child: Row(
+                          children: List.generate(
+                            movies.length,
+                            (index) => AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              margin: const EdgeInsets.only(right: 15),
+                              width: currentIndex == index ? 30 : 10,
+                              height: 10,
+                              decoration: BoxDecoration(
+                                color: currentIndex == index
+                                    ? buttonColor
+                                    : Colors.white24,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ],
