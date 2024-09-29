@@ -243,7 +243,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           final movie = movies[index % movies.length];
                           return GestureDetector(
                             onTap: () {
-                              Get.to(() => const DetailScreen());
+                              Get.to(() => DetailScreen(movie: movie));
                             },
                             child: Padding(
                               padding: EdgeInsets.only(
@@ -254,13 +254,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                 children: [
                                   Transform.rotate(
                                     angle: angle * pi / 90,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(25),
-                                      child: Image.network(
-                                        movie.poster,
-                                        height: 300,
-                                        width: 205,
-                                        fit: BoxFit.cover,
+                                    child: Hero(
+                                      tag: movie.poster,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(25),
+                                        child: Image.network(
+                                          movie.poster,
+                                          height: 300,
+                                          width: 205,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                     ),
                                   ),
