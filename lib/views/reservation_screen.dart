@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../utils/constants/colors.dart';
 
 class ReservationScreen extends StatefulWidget {
@@ -12,8 +11,12 @@ class ReservationScreen extends StatefulWidget {
 class _ReservationScreenState extends State<ReservationScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: appBackgroundColor,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.white,
+      ),
     );
   }
 }
