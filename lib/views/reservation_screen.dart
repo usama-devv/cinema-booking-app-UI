@@ -1,4 +1,5 @@
 import 'package:cinema_booking_app_ui/widgets/clip_border.dart';
+import 'package:cinema_booking_app_ui/widgets/seats_status.dart';
 import 'package:flutter/material.dart';
 import '../model/seats_model.dart';
 import '../utils/constants/colors.dart';
@@ -124,6 +125,44 @@ class _ReservationScreenState extends State<ReservationScreen> {
                 );
               }),
             ],
+          ),
+          const SizedBox(height: 30),
+          const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SeatsStatus(
+                  color: grey,
+                  status: 'Available',
+                ),
+                SizedBox(width: 10),
+                SeatsStatus(
+                  color: buttonColor,
+                  status: 'Selected',
+                ),
+                SizedBox(width: 10),
+                SeatsStatus(
+                  color: Colors.white,
+                  status: 'Reserved',
+                ),
+              ],
+            ),
+          const SizedBox(height: 35),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                ...List.generate(
+                  availableTime.length,
+                  (index) => GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        selectedSeats.clear();
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
