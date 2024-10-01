@@ -16,6 +16,24 @@ class _ReservationScreenState extends State<ReservationScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.white,
+        title: const Text(
+          "Select Seats",
+          style: TextStyle(
+            fontSize: 15,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          SizedBox(height: 30),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30),
+            
+          ),
+        ],
       ),
     );
   }

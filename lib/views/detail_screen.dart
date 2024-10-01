@@ -1,7 +1,9 @@
 import 'package:cinema_booking_app_ui/utils/constants/colors.dart';
 import 'package:cinema_booking_app_ui/utils/constants/time_format.dart';
+import 'package:cinema_booking_app_ui/views/reservation_screen.dart';
 import 'package:cinema_booking_app_ui/widgets/movie_info.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../model/movie_model.dart';
 
@@ -103,6 +105,44 @@ class DetailScreen extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Container(
+        decoration: const BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Color(0xff1c1c27),
+              blurRadius: 60,
+              spreadRadius: 80
+            ),
+          ],
+        ),
+        child: FloatingActionButton.extended(
+          backgroundColor: Colors.transparent,
+          onPressed: () {},
+          label: MaterialButton(
+            onPressed: () {
+              Get.to(() => const ReservationScreen());
+            },
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40),
+            ),
+            color: buttonColor,
+            height: 70,
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 60),
+              child: Center(
+                child: Text(
+                  "Get Reservation",
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
       ),
