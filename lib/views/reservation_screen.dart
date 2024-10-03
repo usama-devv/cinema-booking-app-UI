@@ -146,23 +146,23 @@ class _ReservationScreenState extends State<ReservationScreen> {
               ],
             ),
           const SizedBox(height: 35),
-          // SingleChildScrollView(
-          //   scrollDirection: Axis.horizontal,
-          //   child: Row(
-          //     children: [
-          //       ...List.generate(
-          //         availableTime.length,
-          //         (index) => GestureDetector(
-          //           onTap: (){
-          //             setState(() {
-          //               selectedSeats.clear();
-          //             });
-          //           },
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                ...List.generate(
+                  availableTime.length,
+                  (index) => GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        selectedSeats.clear();
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
