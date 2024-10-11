@@ -401,7 +401,6 @@ class _ReservationScreenState extends State<ReservationScreen> {
     );
   }
 }
-
 class ClipShadow extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
@@ -413,7 +412,6 @@ class ClipShadow extends CustomClipper<Path> {
     path.close();
     return path;
   }
-
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
